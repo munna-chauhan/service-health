@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String    @db.Text
+  description   String?   @db.Text
+  team          String?   @db.Text
+  tokenHash     String    @unique @map("token_hash") @db.Char(64)
+  currentStatus String?   @map("current_status") @db.Text
+  lastReportAt  DateTime? @map("last_report_at") @db.Timestamptz
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  deletedAt     DateTime? @map("deleted_at") @db.Timestamptz
+
+  healthEvents    HealthEvent[]
+  incidents       Incident[]
+  idempotencyKeys IdempotencyKey[]
+
+  @@index([deletedAt])
+  @@map("services")
+}
+
+model HealthEvent {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  serviceId  String   @map("service_id") @db.Uuid
+  status     String   @db.Text
+  message    String?  @db.Text
+  reportedAt DateTime @default(now()) @map("reported_at") @db.Timestamptz
+
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@index([serviceId, reportedAt(sort: Desc)])
+  @@map("health_events")
+}
+
+model IdempotencyKey {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  serviceId String   @map("service_id") @db.Uuid
+  key       String   @db.Text
+  ackBody   Json     @map("ack_body")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@unique([serviceId, key])
+  @@map("idempotency_keys")
+}
+
+model Incident {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  serviceId       String    @map("service_id") @db.Uuid
+  title           String    @db.Text
+  description     String?   @db.Text
+  severity        String    @db.Text
+  state           String    @default("Open") @db.Text
+  version         Int       @default(1)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  investigatingAt DateTime? @map("investigating_at") @db.Timestamptz
+  resolvedAt      DateTime? @map("resolved_at") @db.Timestamptz
+
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@index([serviceId, state])
+  @@map("incidents")
+}

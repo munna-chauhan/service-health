@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: servicehealth
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: changeme
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: "postgresql://app:changeme@db:5432/servicehealth?connection_limit=20"
+      HEALTH_STALE_THRESHOLD_SECONDS: "180"
+      PORT: "3000"
+      CORS_ORIGIN: "http://localhost"
+      LOG_LEVEL: "info"
+    depends_on:
+      db: { condition: service_healthy }
+    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:3000
+    ports: ["80:80"]
+    depends_on: [backend]
+
+volumes:
+  db_data:
