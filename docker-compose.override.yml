@@ -4,4 +4,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    command: sh -c "npx prisma migrate deploy --schema ./schema.prisma && node dist/server.js"
+    command: >-
+      sh -c "npx prisma db push --schema ./schema.prisma --accept-data-loss &&
+      node -e \"const {PrismaClient}=require('@prisma/client');const p=new PrismaClient();p['\$executeRawUnsafe']('CREATE UNIQUE INDEX IF NOT EXISTS services_name_active_unique ON services (name) WHERE deleted_at IS NULL').then(()=>p['\$disconnect']()).catch(()=>{})\" &&
+      node dist/server.js"
