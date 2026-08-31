@@ -1,0 +1,3 @@
+services:
+  backend:
+    ports: ["3001:3000"]
