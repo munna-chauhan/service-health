@@ -23,8 +23,8 @@ export async function registryRoutes(
     async (request, reply) => {
       const name = ((request.body?.name as string) ?? '').trim();
       if (!name) {
-        return reply.status(422).send({
-          statusCode: 422,
+        return reply.status(400).send({
+          statusCode: 400,
           message: 'Validation failed',
           field: 'name',
           fieldMessage: 'Name is required',

@@ -3,7 +3,7 @@ import type { FastifyInstance } from 'fastify';
 import { PrismaClient, Prisma } from '@prisma/client';
 import type { IngestionAdapter } from './IngestionAdapter';
 
-const AUTH_ERROR = { statusCode: 401, message: 'Unauthorized' };
+const AUTH_ERROR = { statusCode: 401, message: 'Authentication required.' };
 
 const VALID_STATUSES = ['healthy', 'degraded', 'unhealthy'];
 
@@ -57,8 +57,8 @@ export async function selfReportPlugin(
     const status = (body as Record<string, unknown>)['status'] as string | undefined;
 
     if (!status || !VALID_STATUSES.includes(status)) {
-      return reply.status(422).send({
-        statusCode: 422,
+      return reply.status(400).send({
+        statusCode: 400,
         message: 'Validation failed',
         field: 'status',
         fieldMessage: 'Invalid status value',
