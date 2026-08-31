@@ -17,5 +17,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/schema.prisma ./schema.prisma
 COPY backend/package.json ./
+COPY backend/docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+CMD ["./docker-entrypoint.sh"]
