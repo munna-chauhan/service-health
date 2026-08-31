@@ -55,6 +55,7 @@ export async function selfReportPlugin(
 
     const body = request.body ?? {};
     const status = (body as Record<string, unknown>)['status'] as string | undefined;
+    const message = (body as Record<string, unknown>)['message'] as string | undefined;
 
     if (!status || !VALID_STATUSES.includes(status)) {
       return reply.status(400).send({
@@ -74,7 +75,7 @@ export async function selfReportPlugin(
     }
 
     try {
-      const result = await adapter.ingest({ serviceId: serviceRow.id, status, idempotencyKey });
+      const result = await adapter.ingest({ serviceId: serviceRow.id, status, idempotencyKey, message });
       return reply.status(200).send({ accepted: true, idempotent: result.idempotent });
     } catch (err) {
       if (isDatabaseError(err)) {
