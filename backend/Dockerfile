@@ -1,5 +1,6 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
+RUN apk add --no-cache openssl
 COPY backend/package*.json ./
 COPY db/schema.prisma ./schema.prisma
 RUN npm ci
@@ -10,6 +11,7 @@ RUN npm run build
 
 FROM node:20-alpine AS production
 WORKDIR /app
+RUN apk add --no-cache openssl
 ENV NODE_ENV=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
