@@ -74,7 +74,7 @@ export async function selfReportPlugin(
     }
 
     try {
-      const result = await adapter.report(serviceRow.id, status, idempotencyKey);
+      const result = await adapter.ingest({ serviceId: serviceRow.id, status, idempotencyKey });
       return reply.status(200).send({ accepted: true, idempotent: result.idempotent });
     } catch (err) {
       if (isDatabaseError(err)) {

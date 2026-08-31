@@ -34,16 +34,20 @@ export async function dashboardRoutes(
         orderBy: { name: 'asc' },
       });
 
-      const rows = services.map((svc) => ({
-        id: svc.id,
-        name: svc.name,
-        lastReportAt: svc.lastReportAt,
-        computedStatus:
+      const rows = services.map((svc) => {
+        const computedStatus =
           !svc.lastReportAt || Date.now() - svc.lastReportAt.getTime() > staleThresholdMs
             ? 'Unknown'
-            : (svc.currentStatus ?? 'Unknown'),
-        nonResolvedIncidentCount: svc._count.incidents,
-      }));
+            : (svc.currentStatus ?? 'Unknown');
+        return {
+          id: svc.id,
+          name: svc.name,
+          lastReportAt: svc.lastReportAt,
+          status: computedStatus,
+          computedStatus,
+          nonResolvedIncidentCount: svc._count.incidents,
+        };
+      });
 
       return reply.status(200).send({ services: rows });
     } catch (err) {
