@@ -17,6 +17,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/schema.prisma ./schema.prisma
 COPY backend/package.json ./
+RUN node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('package.json'));p.prisma={schema:'./schema.prisma'};fs.writeFileSync('package.json',JSON.stringify(p,null,2))"
 COPY backend/docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 EXPOSE 3000

@@ -1,7 +1,8 @@
 #!/bin/sh
 set -e
 
-npx prisma db push --schema ./schema.prisma --accept-data-loss
+# Use absolute schema path to bypass package.json prisma.schema config
+./node_modules/.bin/prisma db push --schema /app/schema.prisma --accept-data-loss
 
 node -e "
 const { PrismaClient } = require('@prisma/client');
