@@ -17,12 +17,12 @@ export class HealthStatusDomain implements IngestionAdapter {
   constructor(private readonly prisma: PrismaClient) {}
 
   async ingest(event: HealthEventInput): Promise<IngestionAck> {
-    const { serviceId, status, idempotencyKey } = event;
+    const { serviceId, status, idempotencyKey, message } = event;
 
     if (!idempotencyKey) {
       const created = await this.prisma.$transaction(async (tx) => {
         const healthEvent = await tx.healthEvent.create({
-          data: { serviceId, status, reportedAt: new Date() },
+          data: { serviceId, status, message: message ?? null, reportedAt: new Date() },
         });
         await tx.service.update({
           where: { id: serviceId },
@@ -43,7 +43,7 @@ export class HealthStatusDomain implements IngestionAdapter {
         return { idempotent: true, eventId: '' };
       }
       const healthEvent = await tx.healthEvent.create({
-        data: { serviceId, status, reportedAt: new Date() },
+        data: { serviceId, status, message: message ?? null, reportedAt: new Date() },
       });
       await tx.service.update({
         where: { id: serviceId },
