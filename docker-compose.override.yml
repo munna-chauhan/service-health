@@ -4,3 +4,4 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    command: sh -c "npx prisma migrate deploy --schema ./schema.prisma && node dist/server.js"
