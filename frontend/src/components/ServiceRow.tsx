@@ -18,7 +18,7 @@ export default function ServiceRow({ service }: ServiceRowProps): React.ReactEle
       <td style={{ padding: '8px 12px' }}>
         <StatusBadge status={service.computedStatus} />
       </td>
-      <td style={{ padding: '8px 12px' }}>{service.incidentCount}</td>
+      <td style={{ padding: '8px 12px' }}>{service.nonResolvedIncidentCount}</td>
       <td style={{ padding: '8px 12px' }}>{formatDate(service.lastReportAt)}</td>
     </tr>
   );

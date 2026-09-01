@@ -38,10 +38,18 @@ export async function selfReportPlugin(
 
     const presentedHash = crypto.createHash('sha256').update(rawToken).digest('hex');
 
-    const serviceRow = await prisma.service.findFirst({
-      where: { tokenHash: presentedHash, deletedAt: null },
-      select: { id: true, tokenHash: true },
-    });
+    let serviceRow: { id: string; tokenHash: string } | null;
+    try {
+      serviceRow = await prisma.service.findFirst({
+        where: { tokenHash: presentedHash, deletedAt: null },
+        select: { id: true, tokenHash: true },
+      });
+    } catch (err) {
+      if (isDatabaseError(err)) {
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
+      }
+      throw err;
+    }
 
     if (!serviceRow) {
       return reply.status(401).send(AUTH_ERROR);
@@ -79,7 +87,7 @@ export async function selfReportPlugin(
       return reply.status(200).send({ accepted: true, idempotent: result.idempotent });
     } catch (err) {
       if (isDatabaseError(err)) {
-        return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
       }
       throw err;
     }

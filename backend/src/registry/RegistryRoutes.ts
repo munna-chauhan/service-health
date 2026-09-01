@@ -61,7 +61,7 @@ export async function registryRoutes(
           });
         }
         if (isDatabaseError(err)) {
-          return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+          return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
         }
         throw err;
       }
@@ -78,7 +78,7 @@ export async function registryRoutes(
       return reply.status(200).send({ services });
     } catch (err) {
       if (isDatabaseError(err)) {
-        return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
       }
       throw err;
     }
@@ -98,7 +98,7 @@ export async function registryRoutes(
         return reply.status(204).send();
       } catch (err) {
         if (isDatabaseError(err)) {
-          return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+          return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
         }
         throw err;
       }

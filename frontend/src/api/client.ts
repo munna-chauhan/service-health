@@ -4,13 +4,21 @@ export class ApiError extends Error {
   statusCode: number;
   field?: string;
   fieldMessage?: string;
+  errors?: Array<{ field: string; message: string }>;
 
-  constructor(statusCode: number, message: string, field?: string, fieldMessage?: string) {
+  constructor(
+    statusCode: number,
+    message: string,
+    field?: string,
+    fieldMessage?: string,
+    errors?: Array<{ field: string; message: string }>,
+  ) {
     super(message);
     this.name = 'ApiError';
     this.statusCode = statusCode;
     this.field = field;
     this.fieldMessage = fieldMessage;
+    this.errors = errors;
   }
 }
 
@@ -32,6 +40,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       (body['message'] as string | undefined) ?? `HTTP ${res.status}`,
       body['field'] as string | undefined,
       body['fieldMessage'] as string | undefined,
+      body['fields'] as Array<{ field: string; message: string }> | undefined,
     );
   }
 
@@ -45,7 +54,7 @@ export interface DashboardService {
   team: string | null;
   computedStatus: 'healthy' | 'degraded' | 'unhealthy' | 'Unknown';
   lastReportAt: string | null;
-  incidentCount: number;
+  nonResolvedIncidentCount: number;
   createdAt: string;
 }
 
@@ -74,8 +83,21 @@ export interface CreateIncidentBody {
   severity?: string;
 }
 
+export interface Incident {
+  id: string;
+  serviceId: string;
+  title: string;
+  severity: string;
+  state: 'Open' | 'Investigating' | 'Resolved';
+  version: number;
+  createdAt: string;
+  investigatingAt: string | null;
+  resolvedAt: string | null;
+}
+
 export interface TransitionIncidentBody {
-  status: string;
+  targetState: string;
+  version: number;
 }
 
 export function getDashboard(): Promise<DashboardResponse> {
@@ -91,6 +113,10 @@ export function registerService(body: RegisterServiceBody): Promise<RegisterServ
 
 export function deleteService(id: string): Promise<void> {
   return request<void>(`/api/services/${id}`, { method: 'DELETE' });
+}
+
+export function getIncident(id: string): Promise<Incident> {
+  return request<Incident>(`/api/incidents/${id}`);
 }
 
 export function createIncident(body: CreateIncidentBody): Promise<Record<string, unknown>> {

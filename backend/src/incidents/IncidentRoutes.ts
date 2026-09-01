@@ -69,10 +69,12 @@ export async function incidentRoutes(
         state: incident.state,
         version: incident.version,
         createdAt: incident.createdAt,
+        investigatingAt: incident.investigatingAt,
+        resolvedAt: incident.resolvedAt,
       });
     } catch (err) {
       if (isDatabaseError(err)) {
-        return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
       }
       throw err;
     }
@@ -92,7 +94,7 @@ export async function incidentRoutes(
         return reply.status(200).send({ incidents });
       } catch (err) {
         if (isDatabaseError(err)) {
-          return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+          return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
         }
         throw err;
       }
@@ -112,7 +114,7 @@ export async function incidentRoutes(
         return reply.status(200).send(incident);
       } catch (err) {
         if (isDatabaseError(err)) {
-          return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+          return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
         }
         throw err;
       }
@@ -132,7 +134,7 @@ export async function incidentRoutes(
         field: 'targetState',
       });
     }
-    if (version === undefined || typeof version !== 'number') {
+    if (version === undefined || typeof version !== 'number' || version < 1) {
       return reply.status(400).send({
         statusCode: 400,
         message: 'version is required',
@@ -176,7 +178,7 @@ export async function incidentRoutes(
         const reread = await prisma.incident.findUnique({ where: { id: request.params.id } });
         return reply.status(409).send({
           statusCode: 409,
-          message: 'Stale version',
+          message: 'Version conflict',
           currentVersion: reread?.version,
         });
       }
@@ -185,7 +187,7 @@ export async function incidentRoutes(
       return reply.status(200).send(updated);
     } catch (err) {
       if (isDatabaseError(err)) {
-        return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
       }
       throw err;
     }

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ServiceRegistry from './pages/ServiceRegistry';
 import RegisterService from './pages/RegisterService';
+import CreateIncident from './pages/CreateIncident';
+import IncidentDetail from './pages/IncidentDetail';
 
 function NavBar(): React.ReactElement {
   const linkStyle = ({ isActive }: { isActive: boolean }): React.CSSProperties => ({
@@ -36,6 +38,8 @@ export default function App(): React.ReactElement {
           <Route path="/" element={<Dashboard />} />
           <Route path="/services" element={<ServiceRegistry />} />
           <Route path="/register" element={<RegisterService />} />
+          <Route path="/incidents/new" element={<CreateIncident />} />
+          <Route path="/incidents/:id" element={<IncidentDetail />} />
         </Routes>
       </main>
     </BrowserRouter>

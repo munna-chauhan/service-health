@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { buildApp } from '../src/server';
 
 const mockPrisma = {
@@ -46,5 +47,28 @@ describe('server', () => {
   it('GET /api/services returns 200', async () => {
     const res = await app.inject({ method: 'GET', url: '/api/services' });
     expect(res.statusCode).toBe(200);
+  });
+
+  it('POST /api/health with missing Authorization header returns 401', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/health',
+      payload: { status: 'healthy' },
+    });
+    expect(res.statusCode).toBe(401);
+  });
+
+  it('POST /api/health with valid token but missing Idempotency-Key header returns 400', async () => {
+    const rawToken = 'valid-test-token-12345';
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+    mockPrisma.service.findFirst.mockResolvedValueOnce({ id: 'svc-test-id', tokenHash });
+
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/health',
+      headers: { authorization: `Bearer ${rawToken}` },
+      payload: { status: 'healthy' },
+    });
+    expect(res.statusCode).toBe(400);
   });
 });

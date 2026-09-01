@@ -52,7 +52,7 @@ export async function dashboardRoutes(
       return reply.status(200).send({ services: rows });
     } catch (err) {
       if (isDatabaseError(err)) {
-        return reply.status(503).send({ statusCode: 503, message: 'Service temporarily unavailable' });
+        return reply.status(503).send({ statusCode: 503, message: 'Database unavailable.' });
       }
       throw err;
     }
