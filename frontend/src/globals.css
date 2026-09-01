@@ -43,6 +43,7 @@
 
   /* Error/warning/success */
   --color-danger: #f87171;
+  --color-danger-fg: #f87171;
   --color-danger-bg: #450a0a;
   --color-warning: #fb923c;
   --color-success: #4ade80;
@@ -257,11 +258,11 @@ a:hover {
 
 .error-banner {
   background-color: var(--color-danger-bg);
-  color: var(--color-danger);
+  color: var(--color-danger-fg);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
-  border: 1px solid var(--color-danger);
+  border: 1px solid var(--color-danger-fg);
 }
 
 /* ================================================================

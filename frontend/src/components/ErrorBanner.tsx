@@ -5,18 +5,5 @@ interface ErrorBannerProps {
 }
 
 export default function ErrorBanner({ message }: ErrorBannerProps): React.ReactElement {
-  return (
-    <div
-      role="alert"
-      style={{
-        backgroundColor: 'var(--color-danger-bg)',
-        color: 'var(--color-danger)',
-        padding: '12px 16px',
-        borderRadius: '6px',
-        marginBottom: '1rem',
-      }}
-    >
-      {message}
-    </div>
-  );
+  return <div role="alert" className="error-banner">{message}</div>;
 }
