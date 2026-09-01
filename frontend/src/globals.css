@@ -118,17 +118,29 @@ a:hover {
    ================================================================ */
 
 .app-shell {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
   background-color: var(--color-bg);
 }
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: var(--sidebar-width);
+  height: 100vh;
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border);
   padding: var(--space-4);
-  flex-shrink: 0;
+  z-index: var(--z-sidebar);
+  overflow-y: auto;
+}
+
+.app-main {
+  grid-column: 2;
+  padding: var(--space-8);
+  min-width: 0;
 }
 
 .main-content {

@@ -6,42 +6,37 @@ import RegisterService from './pages/RegisterService';
 import CreateIncident from './pages/CreateIncident';
 import IncidentDetail from './pages/IncidentDetail';
 
-function NavBar(): React.ReactElement {
-  const linkStyle = ({ isActive }: { isActive: boolean }): React.CSSProperties => ({
-    marginRight: '1rem',
-    fontWeight: isActive ? 'bold' : 'normal',
-    textDecoration: 'none',
-    color: isActive ? '#1a1a1a' : '#555',
-  });
+const navClass = ({ isActive }: { isActive: boolean }): string =>
+  isActive ? 'nav-link active' : 'nav-link';
 
+function Sidebar(): React.ReactElement {
   return (
-    <nav style={{ padding: '1rem', borderBottom: '1px solid #ddd', marginBottom: '1rem' }}>
-      <NavLink to="/" end style={linkStyle}>
-        Dashboard
-      </NavLink>
-      <NavLink to="/services" style={linkStyle}>
-        Services
-      </NavLink>
-      <NavLink to="/register" style={linkStyle}>
-        Register Service
-      </NavLink>
-    </nav>
+    <aside className="sidebar">
+      <p className="sidebar__brand">Service Health</p>
+      <nav aria-label="Main navigation">
+        <NavLink to="/" className={navClass} end>Dashboard</NavLink>
+        <NavLink to="/services" className={navClass}>Services</NavLink>
+        <NavLink to="/register" className={navClass}>Register Service</NavLink>
+      </nav>
+    </aside>
   );
 }
 
 export default function App(): React.ReactElement {
   return (
     <BrowserRouter>
-      <NavBar />
-      <main style={{ padding: '0 1rem' }}>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/services" element={<ServiceRegistry />} />
-          <Route path="/register" element={<RegisterService />} />
-          <Route path="/incidents/new" element={<CreateIncident />} />
-          <Route path="/incidents/:id" element={<IncidentDetail />} />
-        </Routes>
-      </main>
+      <div className="app-shell">
+        <Sidebar />
+        <main className="app-main">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/services" element={<ServiceRegistry />} />
+            <Route path="/register" element={<RegisterService />} />
+            <Route path="/incidents/new" element={<CreateIncident />} />
+            <Route path="/incidents/:id" element={<IncidentDetail />} />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
