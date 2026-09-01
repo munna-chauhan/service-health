@@ -68,47 +68,35 @@ export default function CreateIncident(): React.ReactElement {
 
   return (
     <div>
-      <h1>Create Incident</h1>
+      <h1 className="page__title">Create Incident</h1>
       {generalError && <ErrorBanner message={generalError} />}
-      <form onSubmit={(e) => { void handleSubmit(e); }} style={{ maxWidth: '480px' }}>
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="title" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Title <span style={{ color: 'var(--color-danger)' }}>*</span>
+      <form onSubmit={(e) => { void handleSubmit(e); }} className="form">
+        <div className="form__field">
+          <label htmlFor="title" className="form__label">
+            Title *
           </label>
           <input
             id="title"
             name="title"
             value={form.title}
             onChange={handleChange}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: fieldErrors.title ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
-              boxSizing: 'border-box',
-            }}
+            className={`form__control${fieldErrors.title ? ' form__control--error' : ''}`}
           />
           {fieldErrors.title && (
-            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.title}</p>
+            <p className="form__error">{fieldErrors.title}</p>
           )}
         </div>
 
-        <div style={{ marginBottom: '1.5rem' }}>
-          <label htmlFor="severity" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Severity <span style={{ color: 'var(--color-danger)' }}>*</span>
+        <div className="form__field">
+          <label htmlFor="severity" className="form__label">
+            Severity *
           </label>
           <select
             id="severity"
             name="severity"
             value={form.severity}
             onChange={handleChange}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: fieldErrors.severity ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
-              boxSizing: 'border-box',
-            }}
+            className={`form__control${fieldErrors.severity ? ' form__control--error' : ''}`}
           >
             <option value="">Select severity</option>
             <option value="low">low</option>
@@ -117,18 +105,18 @@ export default function CreateIncident(): React.ReactElement {
             <option value="critical">critical</option>
           </select>
           {fieldErrors.severity && (
-            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.severity}</p>
+            <p className="form__error">{fieldErrors.severity}</p>
           )}
         </div>
 
         {fieldErrors.serviceId && (
-          <p style={{ color: 'var(--color-danger)', margin: '0 0 1rem', fontSize: '0.875rem' }}>{fieldErrors.serviceId}</p>
+          <p className="form__error">{fieldErrors.serviceId}</p>
         )}
 
         <button
           type="submit"
           disabled={submitting}
-          style={{ padding: '8px 24px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+          className="button button--primary"
         >
           {submitting ? 'Creating…' : 'Create Incident'}
         </button>

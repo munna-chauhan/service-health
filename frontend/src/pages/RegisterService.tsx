@@ -68,47 +68,32 @@ export default function RegisterService(): React.ReactElement {
   if (registeredService) {
     return (
       <div>
-        <h1>Service Registered</h1>
+        <h1 className="page__title">Service Registered</h1>
         <p>
           <strong>{registeredService.name}</strong> was registered successfully.
         </p>
-        <div
-          style={{
-            background: 'var(--color-surface-raised)',
-            border: '1px solid var(--color-warning)',
-            borderRadius: '6px',
-            padding: '16px',
-            marginBottom: '1rem',
-          }}
-        >
-          <p style={{ margin: '0 0 8px', fontWeight: 600, color: 'var(--color-warning)' }}>
+        <div className="token-panel">
+          <p className="token-panel__notice">
             Bearer Token — copy it now, it will not be shown again
           </p>
-          <code
-            style={{
-              display: 'block',
-              wordBreak: 'break-all',
-              background: 'var(--color-surface-sunken)',
-              padding: '8px',
-              borderRadius: '4px',
-              fontSize: '0.875rem',
-            }}
-          >
+          <code className="token-panel__value">
             {registeredService.token}
           </code>
           <button
+            type="button"
             onClick={() => { void handleCopy(); }}
-            style={{ marginTop: '8px', padding: '6px 16px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            className="button button--warning"
           >
             {copied ? 'Copied!' : 'Copy Token'}
           </button>
         </div>
         <button
+          type="button"
           onClick={() => {
             setRegisteredService(null);
             setForm({ name: '', description: '', team: '' });
           }}
-          style={{ padding: '8px 16px', background: 'var(--color-surface-raised)', color: 'var(--color-text)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+          className="button button--neutral"
         >
           Register Another
         </button>
@@ -118,33 +103,27 @@ export default function RegisterService(): React.ReactElement {
 
   return (
     <div>
-      <h1>Register Service</h1>
+      <h1 className="page__title">Register Service</h1>
       {generalError && <ErrorBanner message={generalError} />}
-      <form onSubmit={(e) => { void handleSubmit(e); }} style={{ maxWidth: '480px' }}>
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="name" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Name <span style={{ color: 'var(--color-danger)' }}>*</span>
+      <form onSubmit={(e) => { void handleSubmit(e); }} className="form">
+        <div className="form__field">
+          <label htmlFor="name" className="form__label">
+            Name *
           </label>
           <input
             id="name"
             name="name"
             value={form.name}
             onChange={handleChange}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: fieldErrors.name ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
-              boxSizing: 'border-box',
-            }}
+            className={`form__control${fieldErrors.name ? ' form__control--error' : ''}`}
           />
           {fieldErrors.name && (
-            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.name}</p>
+            <p className="form__error">{fieldErrors.name}</p>
           )}
         </div>
 
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="description" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+        <div className="form__field">
+          <label htmlFor="description" className="form__label">
             Description
           </label>
           <textarea
@@ -153,19 +132,12 @@ export default function RegisterService(): React.ReactElement {
             value={form.description}
             onChange={handleChange}
             rows={3}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid var(--color-border)',
-              boxSizing: 'border-box',
-              resize: 'vertical',
-            }}
+            className="form__control"
           />
         </div>
 
-        <div style={{ marginBottom: '1.5rem' }}>
-          <label htmlFor="team" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+        <div className="form__field">
+          <label htmlFor="team" className="form__label">
             Team
           </label>
           <input
@@ -173,20 +145,14 @@ export default function RegisterService(): React.ReactElement {
             name="team"
             value={form.team}
             onChange={handleChange}
-            style={{
-              width: '100%',
-              padding: '8px',
-              borderRadius: '4px',
-              border: '1px solid var(--color-border)',
-              boxSizing: 'border-box',
-            }}
+            className="form__control"
           />
         </div>
 
         <button
           type="submit"
           disabled={submitting}
-          style={{ padding: '8px 24px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+          className="button button--primary"
         >
           {submitting ? 'Registering…' : 'Register'}
         </button>

@@ -48,47 +48,27 @@ export default function ServiceRegistry(): React.ReactElement {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <h1 style={{ margin: 0 }}>Services</h1>
-        <Link to="/register" style={{ padding: '8px 16px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', borderRadius: '6px', textDecoration: 'none' }}>
-          + Register Service
-        </Link>
+      <div className="page__header">
+        <h1 className="page__title">Services</h1>
+        <Link to="/register" className="button button--primary">+ Register Service</Link>
       </div>
       {error && <ErrorBanner message={error} />}
-      {services.length === 0 ? (
-        <p style={{ color: 'var(--color-text-muted)' }}>No services yet. <Link to="/register">Register one.</Link></p>
-      ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '2px solid var(--color-border)', textAlign: 'left' }}>
-              <th style={{ padding: '8px 12px' }}>Name</th>
-              <th style={{ padding: '8px 12px' }}>Team</th>
-              <th style={{ padding: '8px 12px' }}>Status</th>
-              <th style={{ padding: '8px 12px' }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {services.map((service) => (
-              <tr key={service.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <td style={{ padding: '8px 12px' }}>{service.name}</td>
-                <td style={{ padding: '8px 12px' }}>{service.team ?? '—'}</td>
-                <td style={{ padding: '8px 12px' }}>
-                  <StatusBadge status={service.computedStatus} />
-                </td>
-                <td style={{ padding: '8px 12px' }}>
-                  <button
-                    onClick={() => { void handleDelete(service.id); }}
-                    disabled={deletingId === service.id}
-                    style={{ padding: '4px 12px', background: 'var(--color-danger)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-                  >
-                    {deletingId === service.id ? 'Deleting…' : 'Delete'}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <ul className="service-list">
+        {services.length === 0 ? (
+          <li className="empty-state">No services yet. <Link to="/register" className="text-link">Register one.</Link></li>
+        ) : (
+          services.map((service) => (
+            <li key={service.id} className="service-list__row">
+              <span className="service-list__cell">{service.name}</span>
+              <span className="service-list__cell">{service.team ?? '—'}</span>
+              <span className="service-list__cell"><StatusBadge status={service.computedStatus} /></span>
+              <button type="button" className="button button--danger" onClick={() => { void handleDelete(service.id); }} disabled={deletingId === service.id}>
+                {deletingId === service.id ? 'Deleting…' : 'Delete'}
+              </button>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 }

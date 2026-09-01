@@ -68,7 +68,7 @@ export default function IncidentDetail(): React.ReactElement {
   if (error) {
     return (
       <div>
-        <h1>Incident</h1>
+        <h1 className="page__title">Incident</h1>
         <ErrorBanner message={error} />
       </div>
     );
@@ -77,66 +77,57 @@ export default function IncidentDetail(): React.ReactElement {
   if (!incident) {
     return (
       <div>
-        <h1>Incident</h1>
-        <p style={{ color: 'var(--color-text-muted)' }}>Incident not found.</p>
+        <h1 className="page__title">Incident</h1>
+        <p className="empty-state">Incident not found.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 style={{ marginBottom: '0.25rem' }}>{incident.title}</h1>
-      <p style={{ color: 'var(--color-text-muted)', marginTop: 0 }}>Incident #{incident.id}</p>
+      <h1 className="page__title">{incident.title}</h1>
+      <p className="page__subtitle">Incident #{incident.id}</p>
 
       {conflictMessage && <ErrorBanner message={conflictMessage} />}
 
-      <table style={{ borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
-        <tbody>
-          <tr>
-            <th style={{ padding: '6px 16px 6px 0', textAlign: 'left', fontWeight: 600 }}>State</th>
-            <td style={{ padding: '6px 0' }}>{incident.state}</td>
-          </tr>
-          <tr>
-            <th style={{ padding: '6px 16px 6px 0', textAlign: 'left', fontWeight: 600 }}>Severity</th>
-            <td style={{ padding: '6px 0' }}>{incident.severity}</td>
-          </tr>
-          <tr>
-            <th style={{ padding: '6px 16px 6px 0', textAlign: 'left', fontWeight: 600 }}>Created</th>
-            <td style={{ padding: '6px 0' }}>{formatDate(incident.createdAt)}</td>
-          </tr>
-          <tr>
-            <th style={{ padding: '6px 16px 6px 0', textAlign: 'left', fontWeight: 600 }}>Investigating</th>
-            <td style={{ padding: '6px 0' }}>{formatDate(incident.investigatingAt)}</td>
-          </tr>
-          <tr>
-            <th style={{ padding: '6px 16px 6px 0', textAlign: 'left', fontWeight: 600 }}>Resolved</th>
-            <td style={{ padding: '6px 0' }}>{formatDate(incident.resolvedAt)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <dl className="detail-list">
+        <dt className="detail-list__key">State</dt>
+        <dd className="detail-list__value">{incident.state}</dd>
+        <dt className="detail-list__key">Severity</dt>
+        <dd className="detail-list__value">{incident.severity}</dd>
+        <dt className="detail-list__key">Created</dt>
+        <dd className="detail-list__value">{formatDate(incident.createdAt)}</dd>
+        <dt className="detail-list__key">Investigating</dt>
+        <dd className="detail-list__value">{formatDate(incident.investigatingAt)}</dd>
+        <dt className="detail-list__key">Resolved</dt>
+        <dd className="detail-list__value">{formatDate(incident.resolvedAt)}</dd>
+      </dl>
 
-      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+      <div className="action-row">
         {incident.state === 'Open' && (
           <button
+            type="button"
             onClick={() => { void handleTransition('Investigating'); }}
             disabled={transitioning}
-            style={{ padding: '8px 20px', background: 'var(--color-warning)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+            className="button button--warning"
           >
             {transitioning ? 'Updating…' : 'Mark as Investigating'}
           </button>
         )}
         {incident.state === 'Investigating' && (
           <button
+            type="button"
             onClick={() => { void handleTransition('Resolved'); }}
             disabled={transitioning}
-            style={{ padding: '8px 20px', background: 'var(--color-success)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+            className="button button--success"
           >
             {transitioning ? 'Updating…' : 'Mark as Resolved'}
           </button>
         )}
         <button
+          type="button"
           onClick={() => { navigate('/'); }}
-          style={{ padding: '8px 16px', background: 'var(--color-surface-raised)', color: 'var(--color-text)', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+          className="button button--neutral"
         >
           Back to Dashboard
         </button>
