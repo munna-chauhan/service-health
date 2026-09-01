@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDashboard } from '../hooks/useDashboard';
-import ServiceRow from '../components/ServiceRow';
+import ServiceCard from '../components/ServiceCard';
 import ErrorBanner from '../components/ErrorBanner';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -26,21 +26,11 @@ export default function Dashboard(): React.ReactElement {
       {services.length === 0 ? (
         <p style={{ color: 'var(--color-text-muted)' }}>No services registered yet.</p>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '2px solid var(--color-border)', textAlign: 'left' }}>
-              <th style={{ padding: '8px 12px' }}>Service</th>
-              <th style={{ padding: '8px 12px' }}>Status</th>
-              <th style={{ padding: '8px 12px' }}>Incidents</th>
-              <th style={{ padding: '8px 12px' }}>Last Report</th>
-            </tr>
-          </thead>
-          <tbody>
-            {services.map((service) => (
-              <ServiceRow key={service.id} service={service} />
-            ))}
-          </tbody>
-        </table>
+        <ul className="service-grid">
+          {services.map((s) => (
+            <ServiceCard key={s.id} service={s} />
+          ))}
+        </ul>
       )}
     </div>
   );
