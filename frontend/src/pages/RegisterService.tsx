@@ -107,7 +107,7 @@ export default function RegisterService(): React.ReactElement {
       {generalError && <ErrorBanner message={generalError} />}
       <form onSubmit={(e) => { void handleSubmit(e); }} className="form">
         <div className="form__field">
-          <label htmlFor="name" className="form__label">
+          <label htmlFor="name" data-for="name" className="form__label">
             Name *
           </label>
           <input
@@ -137,7 +137,7 @@ export default function RegisterService(): React.ReactElement {
         </div>
 
         <div className="form__field">
-          <label htmlFor="team" className="form__label">
+          <label htmlFor="team" data-for="team" className="form__label">
             Team
           </label>
           <input

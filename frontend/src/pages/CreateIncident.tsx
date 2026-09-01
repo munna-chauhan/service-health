@@ -72,7 +72,7 @@ export default function CreateIncident(): React.ReactElement {
       {generalError && <ErrorBanner message={generalError} />}
       <form onSubmit={(e) => { void handleSubmit(e); }} className="form">
         <div className="form__field">
-          <label htmlFor="title" className="form__label">
+          <label htmlFor="title" data-for="title" className="form__label">
             Title *
           </label>
           <input
@@ -88,7 +88,7 @@ export default function CreateIncident(): React.ReactElement {
         </div>
 
         <div className="form__field">
-          <label htmlFor="severity" className="form__label">
+          <label htmlFor="severity" data-for="severity" className="form__label">
             Severity *
           </label>
           <select
