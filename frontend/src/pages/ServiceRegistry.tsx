@@ -50,17 +50,17 @@ export default function ServiceRegistry(): React.ReactElement {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h1 style={{ margin: 0 }}>Services</h1>
-        <Link to="/register" style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', borderRadius: '6px', textDecoration: 'none' }}>
+        <Link to="/register" style={{ padding: '8px 16px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', borderRadius: '6px', textDecoration: 'none' }}>
           + Register Service
         </Link>
       </div>
       {error && <ErrorBanner message={error} />}
       {services.length === 0 ? (
-        <p style={{ color: '#6b7280' }}>No services yet. <Link to="/register">Register one.</Link></p>
+        <p style={{ color: 'var(--color-text-muted)' }}>No services yet. <Link to="/register">Register one.</Link></p>
       ) : (
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ borderBottom: '2px solid #e5e7eb', textAlign: 'left' }}>
+            <tr style={{ borderBottom: '2px solid var(--color-border)', textAlign: 'left' }}>
               <th style={{ padding: '8px 12px' }}>Name</th>
               <th style={{ padding: '8px 12px' }}>Team</th>
               <th style={{ padding: '8px 12px' }}>Status</th>
@@ -69,7 +69,7 @@ export default function ServiceRegistry(): React.ReactElement {
           </thead>
           <tbody>
             {services.map((service) => (
-              <tr key={service.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+              <tr key={service.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <td style={{ padding: '8px 12px' }}>{service.name}</td>
                 <td style={{ padding: '8px 12px' }}>{service.team ?? '—'}</td>
                 <td style={{ padding: '8px 12px' }}>
@@ -79,7 +79,7 @@ export default function ServiceRegistry(): React.ReactElement {
                   <button
                     onClick={() => { void handleDelete(service.id); }}
                     disabled={deletingId === service.id}
-                    style={{ padding: '4px 12px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                    style={{ padding: '4px 12px', background: 'var(--color-danger)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
                   >
                     {deletingId === service.id ? 'Deleting…' : 'Delete'}
                   </button>

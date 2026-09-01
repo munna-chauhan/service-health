@@ -74,21 +74,21 @@ export default function RegisterService(): React.ReactElement {
         </p>
         <div
           style={{
-            background: '#fef3c7',
-            border: '1px solid #f59e0b',
+            background: 'var(--color-surface-raised)',
+            border: '1px solid var(--color-warning)',
             borderRadius: '6px',
             padding: '16px',
             marginBottom: '1rem',
           }}
         >
-          <p style={{ margin: '0 0 8px', fontWeight: 600, color: '#92400e' }}>
+          <p style={{ margin: '0 0 8px', fontWeight: 600, color: 'var(--color-warning)' }}>
             Bearer Token — copy it now, it will not be shown again
           </p>
           <code
             style={{
               display: 'block',
               wordBreak: 'break-all',
-              background: '#fffbeb',
+              background: 'var(--color-surface-sunken)',
               padding: '8px',
               borderRadius: '4px',
               fontSize: '0.875rem',
@@ -98,7 +98,7 @@ export default function RegisterService(): React.ReactElement {
           </code>
           <button
             onClick={() => { void handleCopy(); }}
-            style={{ marginTop: '8px', padding: '6px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{ marginTop: '8px', padding: '6px 16px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
           >
             {copied ? 'Copied!' : 'Copy Token'}
           </button>
@@ -108,7 +108,7 @@ export default function RegisterService(): React.ReactElement {
             setRegisteredService(null);
             setForm({ name: '', description: '', team: '' });
           }}
-          style={{ padding: '8px 16px', background: '#6b7280', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+          style={{ padding: '8px 16px', background: 'var(--color-surface-raised)', color: 'var(--color-text)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           Register Another
         </button>
@@ -123,7 +123,7 @@ export default function RegisterService(): React.ReactElement {
       <form onSubmit={(e) => { void handleSubmit(e); }} style={{ maxWidth: '480px' }}>
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="name" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Name <span style={{ color: '#ef4444' }}>*</span>
+            Name <span style={{ color: 'var(--color-danger)' }}>*</span>
           </label>
           <input
             id="name"
@@ -134,12 +134,12 @@ export default function RegisterService(): React.ReactElement {
               width: '100%',
               padding: '8px',
               borderRadius: '4px',
-              border: fieldErrors.name ? '1px solid #ef4444' : '1px solid #d1d5db',
+              border: fieldErrors.name ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
               boxSizing: 'border-box',
             }}
           />
           {fieldErrors.name && (
-            <p style={{ color: '#ef4444', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.name}</p>
+            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.name}</p>
           )}
         </div>
 
@@ -157,7 +157,7 @@ export default function RegisterService(): React.ReactElement {
               width: '100%',
               padding: '8px',
               borderRadius: '4px',
-              border: '1px solid #d1d5db',
+              border: '1px solid var(--color-border)',
               boxSizing: 'border-box',
               resize: 'vertical',
             }}
@@ -177,7 +177,7 @@ export default function RegisterService(): React.ReactElement {
               width: '100%',
               padding: '8px',
               borderRadius: '4px',
-              border: '1px solid #d1d5db',
+              border: '1px solid var(--color-border)',
               boxSizing: 'border-box',
             }}
           />
@@ -186,7 +186,7 @@ export default function RegisterService(): React.ReactElement {
         <button
           type="submit"
           disabled={submitting}
-          style={{ padding: '8px 24px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 24px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
         >
           {submitting ? 'Registering…' : 'Register'}
         </button>

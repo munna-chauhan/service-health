@@ -9,8 +9,8 @@ export default function ErrorBanner({ message }: ErrorBannerProps): React.ReactE
     <div
       role="alert"
       style={{
-        backgroundColor: '#fee2e2',
-        color: '#991b1b',
+        backgroundColor: 'var(--color-danger-bg)',
+        color: 'var(--color-danger)',
         padding: '12px 16px',
         borderRadius: '6px',
         marginBottom: '1rem',

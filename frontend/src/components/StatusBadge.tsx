@@ -4,10 +4,10 @@ import type { DashboardService } from '../api/client';
 type Status = DashboardService['computedStatus'];
 
 const STATUS_COLORS: Record<Status, { background: string; color: string }> = {
-  healthy: { background: '#d1fae5', color: '#065f46' },
-  degraded: { background: '#fef3c7', color: '#92400e' },
-  unhealthy: { background: '#fee2e2', color: '#991b1b' },
-  Unknown: { background: '#f3f4f6', color: '#6b7280' },
+  healthy: { background: 'var(--color-status-healthy)', color: 'var(--color-text-on-accent)' },
+  degraded: { background: 'var(--color-status-degraded)', color: 'var(--color-text-on-accent)' },
+  unhealthy: { background: 'var(--color-status-unhealthy)', color: 'var(--color-text-on-accent)' },
+  Unknown: { background: 'var(--color-surface-raised)', color: 'var(--color-text-muted)' },
 };
 
 interface StatusBadgeProps {

@@ -78,7 +78,7 @@ export default function IncidentDetail(): React.ReactElement {
     return (
       <div>
         <h1>Incident</h1>
-        <p style={{ color: '#6b7280' }}>Incident not found.</p>
+        <p style={{ color: 'var(--color-text-muted)' }}>Incident not found.</p>
       </div>
     );
   }
@@ -86,7 +86,7 @@ export default function IncidentDetail(): React.ReactElement {
   return (
     <div>
       <h1 style={{ marginBottom: '0.25rem' }}>{incident.title}</h1>
-      <p style={{ color: '#6b7280', marginTop: 0 }}>Incident #{incident.id}</p>
+      <p style={{ color: 'var(--color-text-muted)', marginTop: 0 }}>Incident #{incident.id}</p>
 
       {conflictMessage && <ErrorBanner message={conflictMessage} />}
 
@@ -120,7 +120,7 @@ export default function IncidentDetail(): React.ReactElement {
           <button
             onClick={() => { void handleTransition('Investigating'); }}
             disabled={transitioning}
-            style={{ padding: '8px 20px', background: '#f59e0b', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+            style={{ padding: '8px 20px', background: 'var(--color-warning)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
           >
             {transitioning ? 'Updating…' : 'Mark as Investigating'}
           </button>
@@ -129,14 +129,14 @@ export default function IncidentDetail(): React.ReactElement {
           <button
             onClick={() => { void handleTransition('Resolved'); }}
             disabled={transitioning}
-            style={{ padding: '8px 20px', background: '#10b981', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+            style={{ padding: '8px 20px', background: 'var(--color-success)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
           >
             {transitioning ? 'Updating…' : 'Mark as Resolved'}
           </button>
         )}
         <button
           onClick={() => { navigate('/'); }}
-          style={{ padding: '8px 16px', background: '#6b7280', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+          style={{ padding: '8px 16px', background: 'var(--color-surface-raised)', color: 'var(--color-text)', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
         >
           Back to Dashboard
         </button>

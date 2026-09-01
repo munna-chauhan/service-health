@@ -24,11 +24,11 @@ export default function Dashboard(): React.ReactElement {
     <div>
       <h1>Dashboard</h1>
       {services.length === 0 ? (
-        <p style={{ color: '#6b7280' }}>No services registered yet.</p>
+        <p style={{ color: 'var(--color-text-muted)' }}>No services registered yet.</p>
       ) : (
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ borderBottom: '2px solid #e5e7eb', textAlign: 'left' }}>
+            <tr style={{ borderBottom: '2px solid var(--color-border)', textAlign: 'left' }}>
               <th style={{ padding: '8px 12px' }}>Service</th>
               <th style={{ padding: '8px 12px' }}>Status</th>
               <th style={{ padding: '8px 12px' }}>Incidents</th>

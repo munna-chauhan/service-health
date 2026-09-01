@@ -73,7 +73,7 @@ export default function CreateIncident(): React.ReactElement {
       <form onSubmit={(e) => { void handleSubmit(e); }} style={{ maxWidth: '480px' }}>
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="title" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Title <span style={{ color: '#ef4444' }}>*</span>
+            Title <span style={{ color: 'var(--color-danger)' }}>*</span>
           </label>
           <input
             id="title"
@@ -84,18 +84,18 @@ export default function CreateIncident(): React.ReactElement {
               width: '100%',
               padding: '8px',
               borderRadius: '4px',
-              border: fieldErrors.title ? '1px solid #ef4444' : '1px solid #d1d5db',
+              border: fieldErrors.title ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
               boxSizing: 'border-box',
             }}
           />
           {fieldErrors.title && (
-            <p style={{ color: '#ef4444', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.title}</p>
+            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.title}</p>
           )}
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
           <label htmlFor="severity" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-            Severity <span style={{ color: '#ef4444' }}>*</span>
+            Severity <span style={{ color: 'var(--color-danger)' }}>*</span>
           </label>
           <select
             id="severity"
@@ -106,7 +106,7 @@ export default function CreateIncident(): React.ReactElement {
               width: '100%',
               padding: '8px',
               borderRadius: '4px',
-              border: fieldErrors.severity ? '1px solid #ef4444' : '1px solid #d1d5db',
+              border: fieldErrors.severity ? '1px solid var(--color-danger)' : '1px solid var(--color-border)',
               boxSizing: 'border-box',
             }}
           >
@@ -117,18 +117,18 @@ export default function CreateIncident(): React.ReactElement {
             <option value="critical">critical</option>
           </select>
           {fieldErrors.severity && (
-            <p style={{ color: '#ef4444', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.severity}</p>
+            <p style={{ color: 'var(--color-danger)', margin: '4px 0 0', fontSize: '0.875rem' }}>{fieldErrors.severity}</p>
           )}
         </div>
 
         {fieldErrors.serviceId && (
-          <p style={{ color: '#ef4444', margin: '0 0 1rem', fontSize: '0.875rem' }}>{fieldErrors.serviceId}</p>
+          <p style={{ color: 'var(--color-danger)', margin: '0 0 1rem', fontSize: '0.875rem' }}>{fieldErrors.serviceId}</p>
         )}
 
         <button
           type="submit"
           disabled={submitting}
-          style={{ padding: '8px 24px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 24px', background: 'var(--color-accent)', color: 'var(--color-text-on-accent)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
         >
           {submitting ? 'Creating…' : 'Create Incident'}
         </button>
