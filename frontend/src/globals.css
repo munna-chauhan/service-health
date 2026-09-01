@@ -31,6 +31,16 @@
   --color-status-unhealthy: #f87171;
   --color-status-unknown: #94a3b8;
 
+  /* Status badge foreground/background token pairs (WCAG AA >= 4.5:1 on dark surface) */
+  --color-status-healthy-fg: #4ade80;
+  --color-status-healthy-bg: #1e293b;
+  --color-status-degraded-fg: #fb923c;
+  --color-status-degraded-bg: #1e293b;
+  --color-status-unhealthy-fg: #f87171;
+  --color-status-unhealthy-bg: #1e293b;
+  --color-status-unknown-fg: #94a3b8;
+  --color-status-unknown-bg: #1e293b;
+
   /* Error/warning/success */
   --color-danger: #f87171;
   --color-danger-bg: #450a0a;
@@ -222,23 +232,23 @@ a:hover {
 }
 
 .status-healthy {
-  background-color: var(--color-status-healthy);
-  color: var(--color-text-on-accent);
+  background-color: var(--color-status-healthy-bg);
+  color: var(--color-status-healthy-fg);
 }
 
 .status-degraded {
-  background-color: var(--color-status-degraded);
-  color: var(--color-text-on-accent);
+  background-color: var(--color-status-degraded-bg);
+  color: var(--color-status-degraded-fg);
 }
 
 .status-unhealthy {
-  background-color: var(--color-status-unhealthy);
-  color: var(--color-text-on-accent);
+  background-color: var(--color-status-unhealthy-bg);
+  color: var(--color-status-unhealthy-fg);
 }
 
 .status-unknown {
-  background-color: var(--color-surface-raised);
-  color: var(--color-text-muted);
+  background-color: var(--color-status-unknown-bg);
+  color: var(--color-status-unknown-fg);
 }
 
 /* ================================================================
