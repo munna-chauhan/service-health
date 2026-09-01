@@ -294,28 +294,26 @@ a:hover {
   color: var(--color-text);
 }
 
-.form__input,
-.form__select,
+.form__control,
 .form__textarea {
   width: 100%;
   padding: var(--space-2);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface-sunken);
   color: var(--color-text);
   font-size: var(--font-size-base);
   box-sizing: border-box;
 }
 
-.form__input:focus,
-.form__select:focus,
+.form__control:focus,
 .form__textarea:focus {
   outline: 2px solid var(--color-focus);
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
-.form__input--error,
-.form__select--error {
+.form__control--error,
+.form__textarea--error {
   border-color: var(--color-danger);
 }
 
@@ -452,4 +450,147 @@ a:hover {
 
 .service-list tbody tr:hover {
   background-color: var(--color-surface);
+}
+
+/* ================================================================
+   Page header / typography helpers
+   ================================================================ */
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.page__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.sidebar__brand {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.text-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  color: var(--color-accent-hover);
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* ================================================================
+   Service list BEM cells
+   ================================================================ */
+
+.service-list__row {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.service-list__cell {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+}
+
+/* ================================================================
+   Service card meta (dl/dt/dd)
+   ================================================================ */
+
+.service-card__meta {
+  margin: var(--space-2) 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-4);
+}
+
+.service-card__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+.service-card__value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ================================================================
+   Detail list BEM keys/values
+   ================================================================ */
+
+.detail-list__key {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  padding-right: var(--space-4);
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.detail-list__value {
+  color: var(--color-text);
+  vertical-align: top;
+}
+
+/* ================================================================
+   Button variant — neutral
+   ================================================================ */
+
+.button--neutral {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.button--neutral:hover {
+  background-color: var(--color-surface);
+}
+
+/* ================================================================
+   Token panel notice
+   ================================================================ */
+
+.token-panel__notice {
+  font-size: var(--font-size-sm);
+  color: var(--color-warning);
+  margin: var(--space-2) 0 0;
+}
+
+/* ================================================================
+   Empty state
+   ================================================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: var(--font-size-sm);
 }
