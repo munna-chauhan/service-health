@@ -71,4 +71,34 @@ describe('server', () => {
     });
     expect(res.statusCode).toBe(400);
   });
+
+  it('POST /api/incidents with empty title and no severity returns 422 with title and severity field errors', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/incidents',
+      payload: { title: '', serviceId: 'some-id' },
+    });
+    expect(res.statusCode).toBe(422);
+    const body = res.json<{ statusCode: number; fields: Array<{ field: string; message: string }> }>();
+    expect(body.statusCode).toBe(422);
+    expect(Array.isArray(body.fields)).toBe(true);
+    const fieldNames = body.fields.map((f) => f.field);
+    expect(fieldNames).toContain('title');
+    expect(fieldNames).toContain('severity');
+  });
+
+  it('POST /api/incidents with valid title and severity but no service returns 422 with service field error', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/incidents',
+      payload: { title: 'Test incident', severity: 'major' },
+    });
+    expect(res.statusCode).toBe(422);
+    const body = res.json<{ statusCode: number; fields: Array<{ field: string; message: string }> }>();
+    expect(body.statusCode).toBe(422);
+    expect(Array.isArray(body.fields)).toBe(true);
+    const fieldNames = body.fields.map((f) => f.field);
+    expect(fieldNames).toContain('service');
+    expect(fieldNames).not.toContain('serviceId');
+  });
 });

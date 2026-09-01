@@ -36,7 +36,7 @@ export async function incidentRoutes(
       errors.push({ field: 'severity', message: 'Severity must be minor, major, or critical' });
     }
     if (!serviceId) {
-      errors.push({ field: 'serviceId', message: 'ServiceId is required' });
+      errors.push({ field: 'service', message: 'Service is required' });
     }
 
     if (errors.length > 0) {
