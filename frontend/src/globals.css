@@ -211,13 +211,13 @@ a:hover {
   padding: var(--space-4);
   min-width: 0;
   box-shadow: none;
-  transition: transform var(--duration-lift, 200ms) ease, border-color var(--duration-lift, 200ms) ease, box-shadow var(--duration-lift, 200ms) ease;
+  transition: transform var(--duration-lift) ease, border-color var(--duration-lift) ease, box-shadow var(--duration-lift) ease;
 }
 
 .service-card:hover {
   transform: translateY(-4px);
   border-color: var(--color-accent);
-  background-color: var(--color-surface-hover, #253347);
+  background-color: var(--color-surface-hover);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -279,7 +279,7 @@ a:hover {
   gap: var(--space-1);
   width: 96px;
   height: 96px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   padding: 0;
