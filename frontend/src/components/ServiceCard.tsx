@@ -17,7 +17,7 @@ export default function ServiceCard({ service }: ServiceCardProps): React.ReactE
       <div className="service-card__header">
         <h2 className="service-card__name">{service.name}</h2>
         {/* status-badge: rendered by StatusBadge */}
-        <StatusBadge status={service.computedStatus} />
+        <StatusBadge status={service.computedStatus} hero />
       </div>
       <dl className="service-card__meta">
         <div>
